@@ -33,3 +33,19 @@ jobs:
         context: ./frontend
         push: true
         tags: solomonlib/ecommerce-frontend:latest, solomonlib/ecommerce-frontend:${{ github.sha }}
+
+  deploy:
+    needs: build-and-push # Only runs if the build succeeds
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}      # Your EC2 Public IP
+          username: ubuntu                   # or 'ec2-user'
+          key: ${{ secrets.EC2_SSH_KEY }}    # The contents of your .pem file
+          script: |
+            cd /home/ubuntu/Ecommerce
+            git pull origin main
+            docker-compose pull
+            docker-compose up -d      

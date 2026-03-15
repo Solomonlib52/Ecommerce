@@ -8,7 +8,6 @@ build
 .next
 .nuxt
 
-
 # Secrets and Config
 .env
 .env.local

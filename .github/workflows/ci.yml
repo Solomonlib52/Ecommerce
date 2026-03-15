@@ -24,6 +24,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: ./backend
+        dockerfile: ./backend/Dockerfile
         push: true
         tags: solomonlib/ecommerce-backend:latest, solomonlib/ecommerce-backend:${{ github.sha }}
 
@@ -31,6 +32,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: ./frontend
+        dockerfile: ./frontend/Dockerfile
         push: true
         tags: solomonlib/ecommerce-frontend:latest, solomonlib/ecommerce-frontend:${{ github.sha }}
 
@@ -53,4 +55,5 @@ jobs:
             echo "REACT_APP_API_URL=http://${{ secrets.EC2_HOST }}:5000" >> .env
             docker-compose pull
             docker-compose up -d      
+            docker-image prune -f
             

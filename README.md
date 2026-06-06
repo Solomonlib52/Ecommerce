@@ -221,7 +221,7 @@ Response:
 
 ---
 
-## 🛠️ Troubleshooting
+## 🛠️ Troubleshootings
 
 ### Port Already in Use
 
